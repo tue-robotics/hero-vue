@@ -14,11 +14,7 @@
         <span>
           <h5 vertical-align="text-bottom">
             {{ key }}
-            <v-icon
-              v-if="v.charging"
-              id="bolt"
-              name="bolt"
-            />
+            <font-awesome-icon v-if="v.charging" :icon="['fas', 'bolt']" id="bolt"/>
           </h5>
         </span>
         <b-progress
