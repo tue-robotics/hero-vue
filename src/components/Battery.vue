@@ -14,13 +14,16 @@
         <span>
           <h5 vertical-align="text-bottom">
             {{ key }}
-            <font-awesome-icon v-if="v.charging" :icon="['fas', 'bolt']" id="bolt"/>
+            <font-awesome-icon
+              v-if="v.charging"
+              id="bolt"
+              :icon="['fas', 'bolt']"
+            />
           </h5>
         </span>
         <b-progress
           id="batteryProgress"
           class="w-100"
-          :style="batteryProgressStyle"
         >
           <b-progress-bar
             :value="v.percentage"
@@ -45,7 +48,7 @@ export default {
       type: Object,
       required: true,
       default () {
-        return { message: 'hello' }
+        return {}
       }
     }
   },
@@ -57,9 +60,6 @@ export default {
         messageType: 'sensor_msgs/BatteryState'
       }),
       batteries: {},
-      batteryProgressStyle: {
-        'background-color': '#d0d0d0'
-      }
     }
   },
   mounted () {
@@ -139,3 +139,13 @@ export default {
   }
 }
 </script>
+
+<style>
+#bolt {
+  color: #FFFF00;
+}
+
+#batteryProgress {
+  background-color: #d0d0d0
+}
+</style>
