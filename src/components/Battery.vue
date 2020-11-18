@@ -148,6 +148,5 @@ export default {
 }
 #batteryProgress {
   background-color: #d0d0d0;
-  height: 2rem;
 }
 </style>
