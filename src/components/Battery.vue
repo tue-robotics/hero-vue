@@ -9,7 +9,7 @@
         id="battery_col"
         :key="key"
         align="center"
-        class="pr-0"
+        class="pr-0 pl-0 mr-1 ml-1"
       >
         <span>
           <h5 vertical-align="text-bottom">
@@ -59,7 +59,7 @@ export default {
         name: 'battery',
         messageType: 'sensor_msgs/BatteryState'
       }),
-      batteries: {},
+      batteries: {}
     }
   },
   mounted () {
@@ -143,9 +143,11 @@ export default {
 <style>
 #bolt {
   color: #FFFF00;
+  height: 1rem;
+  width: auto;
 }
-
 #batteryProgress {
-  background-color: #d0d0d0
+  background-color: #d0d0d0;
+  height: 2rem;
 }
 </style>
