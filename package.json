@@ -24,7 +24,12 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "version": "npm run build",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
+    "postpublish": "git push && git push --tags"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
