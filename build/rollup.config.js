@@ -41,6 +41,7 @@ const baseConfig = {
       },
     },
     babel: {
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**',
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
     },
@@ -55,7 +56,9 @@ const external = [
   '@fortawesome/fontawesome-svg-core',
   '@fortawesome/free-solid-svg-icons',
   '@fortawesome/vue-fontawesome',
+  'bootstrap/dist/css/bootstrap.css',
   'bootstrap-vue',
+  'bootstrap-vue/dist/bootstrap-vue.css',
   'eventemitter2',
   'roslib',
   'os',
@@ -163,9 +166,6 @@ if (!argv.format || argv.format === 'iife') {
         output: {
           ecma: 5,
         },
-      }),
-      alias({
-        'vue$': 'vue/dist/vue.runtime.esm.js'
       }),
     ],
   };
