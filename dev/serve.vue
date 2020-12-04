@@ -1,17 +1,27 @@
 <script>
-import Vue from 'vue';
-import { HeroVueSample } from '@/entry';
+import Vue from 'vue'
+import { AutoRos, Battery } from '@/entry'
 
 export default Vue.extend({
   name: 'ServeDev',
   components: {
-    HeroVueSample,
+    Battery
+  },
+  data () {
+    return {
+      ros: AutoRos.ros
+    }
+  },
+  mounted () {
+    AutoRos.connect()
   }
-});
+})
 </script>
 
 <template>
   <div id="app">
-    <hero-vue-sample />
+    <Battery
+      :ros="ros"
+    />
   </div>
 </template>

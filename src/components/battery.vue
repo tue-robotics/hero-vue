@@ -40,8 +40,25 @@
 <script>
 import ROSLIB from 'roslib'
 
+import { BContainer, BCol, BRow, BProgress, BProgressBar } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBolt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faBolt)
+
 export default {
   name: 'Battery',
+  components: {
+    'b-container': BContainer,
+    'b-col': BCol,
+    'b-row': BRow,
+    'b-progress': BProgress,
+    'b-progress-bar': BProgressBar,
+    'font-awesome-icon': FontAwesomeIcon
+  },
   props: {
     ros: {
       type: Object,

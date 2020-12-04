@@ -52,6 +52,13 @@ const baseConfig = {
 const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
+  '@fortawesome/fontawesome-svg-core',
+  '@fortawesome/free-solid-svg-icons',
+  '@fortawesome/vue-fontawesome',
+  'bootstrap-vue',
+  'eventemitter2',
+  'roslib',
+  'os',
   'vue',
 ];
 
@@ -60,7 +67,14 @@ const external = [
 const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
-  vue: 'Vue',
+  '@fortawesome/fontawesome-svg-core': 'fontawesomeSvgCore',
+  '@fortawesome/free-solid-svg-icons': 'freeSolidSvgIcons',
+  '@fortawesome/vue-fontawesome': 'vueFontawesome',
+  'bootstrap-vue': 'bootstrapVue',
+  'eventemitter2': 'eventemitter2',
+  'roslib': 'ROSLIB',
+  'os': 'os',
+  'vue': 'Vue',
 };
 
 // Customize configs for individual targets
@@ -149,6 +163,9 @@ if (!argv.format || argv.format === 'iife') {
         output: {
           ecma: 5,
         },
+      }),
+      alias({
+        'vue$': 'vue/dist/vue.runtime.esm.js'
       }),
     ],
   };
