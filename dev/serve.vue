@@ -1,11 +1,12 @@
 <script>
 import Vue from 'vue'
-import { AutoRos, Battery } from '@/entry'
+import { AutoRos, Battery, Indicator } from '@/entry'
 
 export default Vue.extend({
   name: 'ServeDev',
   components: {
-    Battery
+    Battery,
+    Indicator
   },
   data () {
     return {
@@ -20,6 +21,9 @@ export default Vue.extend({
 
 <template>
   <div id="app">
+    <Indicator
+      :ros="ros"
+    />
     <Battery
       :ros="ros"
     />
