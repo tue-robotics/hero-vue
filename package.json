@@ -1,6 +1,6 @@
 {
   "name": "hero-vue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Library of (VUE) components to be used in HERO JavaScript apps",
   "repository": {
     "type": "git",
