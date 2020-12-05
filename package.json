@@ -50,6 +50,7 @@
     "@vue/cli-plugin-eslint": "^4.5.9",
     "@vue/cli-service": "^4.3.1",
     "@vue/eslint-config-standard": "^5.1.2",
+    "auto-ros": "^0.1.1",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.7.2",

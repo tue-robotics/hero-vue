@@ -1,6 +1,7 @@
 <script>
 import Vue from 'vue'
-import { AutoRos, Battery, Indicator } from '@/entry'
+import AutoRos from 'auto-ros'
+import { Battery, Indicator } from '@/entry'
 
 export default Vue.extend({
   name: 'ServeDev',
