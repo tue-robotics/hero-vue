@@ -53,15 +53,6 @@ const baseConfig = {
 const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
-  '@fortawesome/fontawesome-svg-core',
-  '@fortawesome/free-solid-svg-icons',
-  '@fortawesome/vue-fontawesome',
-  'bootstrap/dist/css/bootstrap.css',
-  'bootstrap-vue',
-  'bootstrap-vue/dist/bootstrap-vue.css',
-  'eventemitter2',
-  'roslib',
-  'os',
   'vue',
 ];
 
