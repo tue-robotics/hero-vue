@@ -2,7 +2,7 @@
 
 [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![devDependency Status][daviddm-image-dev]][daviddm-url-dev] [![devDependency Status][daviddm-image-peer]][daviddm-url-peer]
 
-Library of (VUE) components to be used in HERO JavaScript apps
+Library of VUE components to be used in HERO JavaScript apps
 
 [travis-image]: https://travis-ci.com/tue-robotics/hero-vue.svg?branch=master
 [travis-url]: https://travis-ci.com/tue-robotics/hero-vue
