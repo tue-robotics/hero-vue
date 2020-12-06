@@ -2,35 +2,33 @@
   "name": "hero-vue",
   "version": "0.3.0",
   "description": "Library of (VUE) components to be used in HERO JavaScript apps",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tue-robotics/hero-vue.git"
-  },
   "author": {
     "name": "Matthijs van der Burgh",
     "email": "MatthijsBurgh@outlook.com"
   },
+  "scripts": {
+    "serve": "vue-cli-service serve dev/serve.js",
+    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
+    "test:unit": "vue-cli-service test:unit",
+    "test": "npm run test:unit",
+    "lint": "vue-cli-service lint",
+    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
+    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
+    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+    "major": "npm version major && npm publish",
+    "minor": "npm version minor && npm publish",
+    "patch": "npm version patch && npm publish",
+    "postpublish": "git push && git push --tags",
+    "version": "npm run build"
+  },
   "main": "dist/hero-vue.ssr.js",
-  "browser": "dist/hero-vue.esm.js",
   "module": "dist/hero-vue.esm.js",
+  "browser": "dist/hero-vue.esm.js",
   "unpkg": "dist/hero-vue.min.js",
   "files": [
     "dist/*",
     "src/**/*.vue"
   ],
-  "scripts": {
-    "serve": "vue-cli-service serve dev/serve.js",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "lint": "vue-cli-service lint",
-    "version": "npm run build",
-    "patch": "npm version patch && npm publish",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish",
-    "postpublish": "git push && git push --tags"
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
@@ -48,10 +46,13 @@
     "@rollup/plugin-replace": "^2.3.2",
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-plugin-eslint": "^4.5.9",
+    "@vue/cli-plugin-unit-mocha": "^4.5.9",
     "@vue/cli-service": "^4.3.1",
     "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/test-utils": "^1.0.3",
     "auto-ros": "^0.1.1",
     "babel-eslint": "^10.1.0",
+    "chai": "^4.1.2",
     "cross-env": "^7.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.22.1",
@@ -63,6 +64,7 @@
     "rollup": "^2.34.1",
     "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-vue": "^5.1.6",
+    "uws": "^200.0.0",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
   },
@@ -71,5 +73,9 @@
   },
   "engines": {
     "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tue-robotics/hero-vue.git"
   }
 }
