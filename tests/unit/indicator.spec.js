@@ -3,7 +3,6 @@ import { mount } from '@vue/test-utils'
 import AutoRos from 'auto-ros'
 import { BButton } from 'bootstrap-vue'
 import Indicator from '@/components/indicator.vue'
-
 import Vue from 'vue'
 
 describe('indicator.vue', () => {
@@ -17,7 +16,7 @@ describe('indicator.vue', () => {
   it('Type should be "dark" on startup.', () => {
     expect(wrapper.vm.$data.type).to.be.a('string')
     expect(wrapper.vm.$data.type).to.equal('dark')
-    expect(button.classes()).to.include('btn-dark')
+    expect(button.classes().some(x => x.includes('dark'))).to.equal(true)
   })
 
   it('Button should be disabled', () => {
@@ -28,7 +27,7 @@ describe('indicator.vue', () => {
     wrapper.vm.handleMsg({ data: false })
     expect(wrapper.vm.$data.type).to.equal('success')
     return Vue.nextTick().then(() => {
-      expect(button.classes()).to.include('btn-success')
+      expect(button.classes().some(x => x.includes('success'))).to.equal(true)
     })
   })
 
@@ -36,7 +35,7 @@ describe('indicator.vue', () => {
     wrapper.vm.handleMsg({ data: true })
     expect(wrapper.vm.$data.type).to.equal('danger')
     return Vue.nextTick().then(() => {
-      expect(button.classes()).to.include('btn-danger')
+      expect(button.classes().some(x => x.includes('danger'))).to.equal(true)
     })
   })
 
@@ -44,7 +43,7 @@ describe('indicator.vue', () => {
     AutoRos.ros.emit('close')
     expect(wrapper.vm.$data.type).to.equal('dark')
     return Vue.nextTick().then(() => {
-      expect(button.classes()).to.include('btn-dark')
+      expect(button.classes().some(x => x.includes('dark'))).to.equal(true)
     })
   })
 })

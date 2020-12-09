@@ -1,10 +1,11 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import AutoRos from 'auto-ros'
+import { BProgressBar } from 'bootstrap-vue'
 import Battery from '@/components/battery.vue'
-
 import Vue from 'vue'
-// import { random } from 'Math'
+
+var FakeTimers = require('@sinonjs/fake-timers')
 
 describe('battery.vue', () => {
   const wrapper = mount(Battery, {
@@ -12,10 +13,18 @@ describe('battery.vue', () => {
       ros: AutoRos.ros
     }
   })
-  beforeEach(() => {
+
+  var clock
+
+  beforeEach(function () {
+    clock = FakeTimers.install()
+  })
+
+  afterEach(() => {
     for (const prop of Object.getOwnPropertyNames(wrapper.vm.$data.batteries)) {
       delete wrapper.vm.$data.batteries[prop]
     }
+    clock.uninstall()
   })
 
   it('Batteries should be empty on startup', () => {
@@ -47,15 +56,70 @@ describe('battery.vue', () => {
     }
   })
 
-  it('Progress color should match battery percentage', () => {
-    var promises = []
-    for (var i = 0; i < 10; i++) {
-      wrapper.vm.handleBatteryMsg({ percentage: Math.random(), location: 'hero1', power_supply_status: 1 })
-      promises.push(Vue.nextTick().then(() => {
-        // console.log(wrapper.b-progress-bar
-        expect(false)
-      }))
+  it('Battery color type should match battery percentage', () => {
+    for (var i = 0; i <= 10; i++) {
+      wrapper.vm.handleBatteryMsg({ percentage: i / 10, location: 'hero1', power_supply_status: 1 })
+      const percentage = wrapper.vm.$data.batteries.hero1.percentage
+      let type
+      if (percentage > 40) {
+        type = 'success'
+      } else if (percentage > 20) {
+        type = 'warning'
+      } else {
+        type = 'danger'
+      }
+      expect(wrapper.vm.$data.batteries.hero1.type).to.equal(type)
     }
-    return promises
+  })
+
+  it('Rendered battery color should match backend state: 0.1', () => {
+    wrapper.vm.handleBatteryMsg({ percentage: 0.1, location: 'hero1', power_supply_status: 1 })
+    return Vue.nextTick().then(() => {
+      expect(wrapper.getComponent(BProgressBar).classes().some(x => x.includes('danger')))
+    })
+  })
+
+  it('Rendered battery color should match backend state: 0.3', () => {
+    wrapper.vm.handleBatteryMsg({ percentage: 0.3, location: 'hero1', power_supply_status: 1 })
+    return Vue.nextTick().then(() => {
+      expect(wrapper.getComponent(BProgressBar).classes().some(x => x.includes('warning')))
+    })
+  })
+
+  it('Rendered battery color should match backend state: 0.5', () => {
+    wrapper.vm.handleBatteryMsg({ percentage: 0.5, location: 'hero1', power_supply_status: 1 })
+    return Vue.nextTick().then(() => {
+      expect(wrapper.getComponent(BProgressBar).classes().some(x => x.includes('success')))
+    })
+  })
+
+  it('Battery should go "dark" and shouldn\'t be charging after timeout', () => {
+    wrapper.vm.handleBatteryMsg({ percentage: 0.5, location: 'hero1', power_supply_status: 1 })
+    expect(wrapper.vm.$data.batteries.hero1.type).to.equal('success')
+    expect(wrapper.vm.$data.batteries.hero1.charging).to.equal(true)
+    return Vue.nextTick().then(() => {
+      expect(wrapper.getComponent(BProgressBar).classes().some(x => x.includes('success'))).to.equal(true)
+      expect(wrapper.findAll('#bolt')).to.have.lengthOf(1)
+      clock.tick(10000)
+      expect(wrapper.vm.$data.batteries.hero1.type).to.equal('dark')
+      expect(wrapper.vm.$data.batteries.hero1.charging).to.equal(false)
+      return Vue.nextTick().then(() => {
+        expect(wrapper.getComponent(BProgressBar).classes().some(x => x.includes('dark'))).to.equal(true)
+        expect(wrapper.findAll('#bolt')).to.have.lengthOf(0)
+      })
+    })
+  })
+
+  it('Battery should be deleted after timeout', () => {
+    wrapper.vm.handleBatteryMsg({ percentage: 0.5, location: 'hero1', power_supply_status: 1 })
+    expect(Object.keys(wrapper.vm.$data.batteries)).to.have.lengthOf(1)
+    return Vue.nextTick().then(() => {
+      expect(wrapper.findAll('#battery_col')).to.have.lengthOf(1)
+      clock.tick(60000)
+      expect(Object.keys(wrapper.vm.$data.batteries)).to.have.lengthOf(0)
+      return Vue.nextTick().then(() => {
+        expect(wrapper.findAll('#battery_col')).to.have.lengthOf(0)
+      })
+    })
   })
 })
