@@ -35,6 +35,7 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: false
-      - run: npm publish
+      - name: Publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
