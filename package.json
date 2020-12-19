@@ -1,6 +1,6 @@
 {
   "name": "hero-vue",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Library of (VUE) components to be used in HERO JavaScript apps",
   "author": {
     "name": "Matthijs van der Burgh",
