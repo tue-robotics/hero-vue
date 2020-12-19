@@ -15,9 +15,9 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "major": "npm version major && npm publish",
-    "minor": "npm version minor && npm publish",
-    "patch": "npm version patch && npm publish",
+    "major": "npm version major && npm postpublish",
+    "minor": "npm version minor && npm postpublish",
+    "patch": "npm version patch && npm postpublish",
     "postpublish": "git push && git push --tags",
     "version": "npm run build"
   },
