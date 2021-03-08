@@ -5,7 +5,7 @@ import { BProgressBar } from 'bootstrap-vue'
 import Battery from '@/components/battery.vue'
 import Vue from 'vue'
 
-var FakeTimers = require('@sinonjs/fake-timers')
+const FakeTimers = require('@sinonjs/fake-timers')
 
 describe('battery.vue', () => {
   const wrapper = mount(Battery, {
@@ -14,7 +14,7 @@ describe('battery.vue', () => {
     }
   })
 
-  var clock
+  let clock
 
   beforeEach(function () {
     clock = FakeTimers.install()
@@ -50,14 +50,14 @@ describe('battery.vue', () => {
   })
 
   it('Percentage should be in [0, 100]', () => {
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
       wrapper.vm.handleBatteryMsg({ percentage: Math.random(), location: 'hero1', power_supply_status: 1 })
       expect(wrapper.vm.$data.batteries.hero1.percentage).to.be.at.least(0).and.at.most(100)
     }
   })
 
   it('Battery color type should match battery percentage', () => {
-    for (var i = 0; i <= 10; i++) {
+    for (let i = 0; i <= 10; i++) {
       wrapper.vm.handleBatteryMsg({ percentage: i / 10, location: 'hero1', power_supply_status: 1 })
       const percentage = wrapper.vm.$data.batteries.hero1.percentage
       let type
