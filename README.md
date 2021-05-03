@@ -1,6 +1,6 @@
 # hero-vue
 
-[![CI][gh-actions-image]][gh-actions-url] [![Dependency Status][daviddm-image]][daviddm-url] [![devDependency Status][daviddm-image-dev]][daviddm-url-dev] [![devDependency Status][daviddm-image-peer]][daviddm-url-peer]
+[![CI][gh-actions-image]][gh-actions-url] [![Dependency Status][daviddm-image]][daviddm-url] [![devDependency Status][daviddm-image-dev]][daviddm-url-dev] [![peerDependency Status][daviddm-image-peer]][daviddm-url-peer]
 
 Library of VUE components to be used in HERO JavaScript apps
 
