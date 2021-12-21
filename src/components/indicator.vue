@@ -25,7 +25,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faPowerOff)
 
 export default {
-  name: 'Indicator',
+  name: 'IndicatorItem',
   components: {
     'b-button': BButton,
     'font-awesome-icon': FontAwesomeIcon
