@@ -50,7 +50,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faBolt)
 
 export default {
-  name: 'Battery',
+  name: 'BatteryItem',
   components: {
     'b-container': BContainer,
     'b-col': BCol,
