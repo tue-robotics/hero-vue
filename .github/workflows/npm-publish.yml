@@ -17,11 +17,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install
         run: npm ci
-      - name: (TEMP) overrule roslib dependency
-        run: |
-          cd node_modules/roslib
-          npm install --save socket.io@^3.0.3
-          cd ../..
       - name: Build
         run: npm run build
       - name: Test
