@@ -51,7 +51,7 @@
     "@vue/cli-service": "^4.3.0",
     "@vue/eslint-config-standard": "^6.0.0",
     "@vue/test-utils": "^1.0.0",
-    "auto-ros": "^0.1.1",
+    "auto-ros": "^0.1.5",
     "babel-eslint": "^10.1.0",
     "chai": "^4.1.0",
     "cross-env": "^7.0.0",
