@@ -59,7 +59,7 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-vue": "^8.2.0",
+    "eslint-plugin-vue": "^9.0.0",
     "minimist": "^1.2.0",
     "rollup": "^2.34.0",
     "rollup-plugin-terser": "^7.0.0",
