@@ -6,9 +6,10 @@ import Indicator from '@/components/indicator.vue'
 import Vue from 'vue'
 
 describe('indicator.vue', () => {
+  const autoRos = new AutoRos()
   const wrapper = mount(Indicator, {
     propsData: {
-      ros: AutoRos.ros
+      ros: autoRos.ros
     }
   })
   const button = wrapper.getComponent(BButton)
@@ -40,7 +41,7 @@ describe('indicator.vue', () => {
   })
 
   it('ROS closes, button should be "dark"', () => {
-    AutoRos.ros.emit('close')
+    autoRos.ros.emit('close')
     expect(wrapper.vm.$data.type).to.equal('dark')
     return Vue.nextTick().then(() => {
       expect(button.classes().some(x => x.includes('dark'))).to.equal(true)
