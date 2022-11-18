@@ -8,9 +8,10 @@ import Vue from 'vue'
 const FakeTimers = require('@sinonjs/fake-timers')
 
 describe('battery.vue', () => {
+  const autoRos = new AutoRos()
   const wrapper = mount(Battery, {
     propsData: {
-      ros: AutoRos.ros
+      ros: autoRos.ros
     }
   })
 
