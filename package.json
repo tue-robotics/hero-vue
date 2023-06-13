@@ -46,7 +46,7 @@
     "@rollup/plugin-babel": "^6.0.0",
     "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-replace": "^5.0.0",
-    "@sinonjs/fake-timers": "^10.0.0",
+    "@sinonjs/fake-timers": "^11.0.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-unit-mocha": "~5.0.0",
