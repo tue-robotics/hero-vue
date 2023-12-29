@@ -55,7 +55,7 @@
     "@vue/eslint-config-standard": "^7.0.0",
     "@vue/test-utils": "^1.0.0",
     "auto-ros": "^1.0.0",
-    "chai": "^4.1.0",
+    "chai": "^5.0.0",
     "cross-env": "^7.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-import": "^2.22.0",
