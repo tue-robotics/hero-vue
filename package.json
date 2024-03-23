@@ -53,7 +53,7 @@
     "@vue/cli-service": "~5.0.0",
     "@vue/compiler-sfc": "^3.0.0-beta.14",
     "@vue/eslint-config-standard": "^7.0.0",
-    "@vue/test-utils": "^1.0.0",
+    "@vue/test-utils": "^2.4.5",
     "auto-ros": "^1.0.0",
     "chai": "^5.0.0",
     "cross-env": "^7.0.0",
