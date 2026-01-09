@@ -49,7 +49,7 @@
     "@rollup/plugin-replace": "^6.0.3",
     "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-typescript": "^12.0.0",
-    "@sinonjs/fake-timers": "^13.0.0",
+    "@sinonjs/fake-timers": "^15.1.0",
     "@types/node": "^25.0.3",
     "@typescript-eslint/parser": "^8.0.0",
     "@vitejs/plugin-vue": "^6.0.3",
