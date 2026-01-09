@@ -1,5 +1,4 @@
 // rollup.config.js
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import vue from 'rollup-plugin-vue';
