@@ -10,8 +10,5 @@ module.exports = defineConfig({
       },
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue', '.json']
     }
-  },
-  chainWebpack: config => {
-    config.resolve.alias.set('@', path.resolve(__dirname, 'src'))
   }
 })
