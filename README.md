@@ -8,7 +8,7 @@ Library of Vue 3 components to be used in HERO JavaScript apps
 
 - Vue 3 with Composition API
 - TypeScript support
-- Modern build system using Vite (with Rollup under the hood)
+- Pure Rollup build system (no bundler frameworks)
 - Bootstrap 5
 - Font Awesome icons
 
@@ -34,6 +34,13 @@ npm run lint
 ## Requirements
 
 - Node.js >= 20
+
+## Build Output
+
+The library produces:
+- `dist/hero-vue.esm.js` + `hero-vue.esm.css` - ES Module format
+- `dist/hero-vue.ssr.js` - CommonJS format for SSR
+- `dist/hero-vue.min.js` - IIFE format for browser (CSS inlined)
 
 [gh-actions-image]: https://github.com/tue-robotics/hero-vue/actions/workflows/main.yml/badge.svg
 [gh-actions-url]: https://github.com/tue-robotics/hero-vue/actions/workflows/main.yml

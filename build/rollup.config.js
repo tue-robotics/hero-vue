@@ -2,22 +2,17 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import vue from '@vitejs/plugin-vue';
+import vue from 'rollup-plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import esbuild from 'rollup-plugin-esbuild';
+import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Get browserslist config and remove ie from es build targets
-const esbrowserslist = fs.readFileSync('./.browserslistrc')
-  .toString()
-  .split('\n')
-  .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
 
 const projectRoot = path.resolve(__dirname, '..');
 
@@ -37,7 +32,14 @@ const baseConfig = {
         'process.env.NODE_ENV': JSON.stringify('production'),
       },
     },
-    vue: {},
+    postcss: {
+      extract: true,
+      minimize: true,
+    },
+    vue: {
+      target: 'browser',
+      preprocessStyles: false,
+    },
     esbuild: {
       target: 'es2020',
       sourceMap: true,
@@ -81,9 +83,10 @@ const esConfig = {
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
+    postcss(baseConfig.plugins.postcss),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
-      extensions: ['.js', '.ts', '.vue']
+      extensions: ['.js', '.ts', '.vue', '.css']
     }),
     commonjs(),
   ],
@@ -107,9 +110,10 @@ const cjsConfig = {
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
+    postcss({ ...baseConfig.plugins.postcss, extract: false, inject: false }),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
-      extensions: ['.js', '.ts', '.vue']
+      extensions: ['.js', '.ts', '.vue', '.css']
     }),
     commonjs(),
   ],
@@ -133,9 +137,10 @@ const iifeConfig = {
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
+    postcss({ ...baseConfig.plugins.postcss, extract: false, inject: true }),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
-      extensions: ['.js', '.ts', '.vue']
+      extensions: ['.js', '.ts', '.vue', '.css']
     }),
     commonjs(),
     terser({
