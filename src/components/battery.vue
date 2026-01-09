@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { Ros, Topic, type Message } from 'roslib'
+import { Ros, Topic } from 'roslib'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBolt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -69,7 +69,7 @@ const props = defineProps<{
 }>()
 
 const batteries = ref<Batteries>({})
-let batteryTopic: Topic<Message> | null = null
+let batteryTopic: Topic<BatteryMsg> | null = null
 
 const setupClearBatteryType = (key: string, seconds = 10) => {
   const battery = batteries.value[key]
@@ -148,7 +148,7 @@ onMounted(() => {
     name: 'battery',
     messageType: 'sensor_msgs/BatteryState'
   })
-  batteryTopic.subscribe(handleBatteryMsg as (message: Message) => void)
+  batteryTopic.subscribe(handleBatteryMsg)
 })
 
 onBeforeUnmount(() => {
