@@ -31,7 +31,7 @@ const props = defineProps<{
 }>()
 
 const type = ref('dark')
-let indicatorTopic: Topic | null = null
+let indicatorTopic: Topic<Message> | null = null
 
 const handleMsg = (msg: IndicatorMsg) => {
   if (msg.data) {

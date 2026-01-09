@@ -69,7 +69,7 @@ const props = defineProps<{
 }>()
 
 const batteries = ref<Batteries>({})
-let batteryTopic: Topic | null = null
+let batteryTopic: Topic<Message> | null = null
 
 const setupClearBatteryType = (key: string, seconds = 10) => {
   const battery = batteries.value[key]
