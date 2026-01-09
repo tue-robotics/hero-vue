@@ -6,13 +6,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import AutoRos from 'auto-ros'
+import { markRaw, onMounted } from 'vue'
+import { AutoRos } from 'auto-ros'
 import { Battery, Indicator } from '@/entry'
 
-const ros = ref(AutoRos.ros)
+const autoRos = new AutoRos()
+const ros = markRaw(autoRos.ros)
 
 onMounted(() => {
-  AutoRos.connect()
+  autoRos.connect()
 })
 </script>

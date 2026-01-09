@@ -1,13 +1,14 @@
 import { expect, describe, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import AutoRos from 'auto-ros'
+import { markRaw } from 'vue'
+import { AutoRos } from 'auto-ros'
 import Indicator from '@/components/indicator.vue'
 
 describe('indicator.vue', () => {
   const autoRos = new AutoRos()
   const wrapper = mount(Indicator, {
     props: {
-      ros: autoRos.ros
+      ros: markRaw(autoRos.ros)
     }
   })
   const button = wrapper.find('button')

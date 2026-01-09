@@ -1,6 +1,7 @@
 import { expect, describe, it, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
-import AutoRos from 'auto-ros'
+import { markRaw } from 'vue'
+import { AutoRos } from 'auto-ros'
 import Battery from '@/components/battery.vue'
 import { install as FakeTimers } from '@sinonjs/fake-timers'
 
@@ -8,7 +9,7 @@ describe('battery.vue', () => {
   const autoRos = new AutoRos()
   const wrapper = mount(Battery, {
     props: {
-      ros: autoRos.ros
+      ros: markRaw(autoRos.ros)
     }
   })
 

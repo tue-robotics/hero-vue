@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import ROSLIB from 'roslib'
+import { Ros, Topic, type Message } from 'roslib'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -27,11 +27,11 @@ interface IndicatorMsg {
 }
 
 const props = defineProps<{
-  ros: ROSLIB.Ros
+  ros: Ros
 }>()
 
 const type = ref('dark')
-let indicatorTopic: ROSLIB.Topic | null = null
+let indicatorTopic: Topic | null = null
 
 const handleMsg = (msg: IndicatorMsg) => {
   if (msg.data) {
@@ -46,12 +46,12 @@ const OnClose = () => {
 }
 
 onMounted(() => {
-  indicatorTopic = new ROSLIB.Topic({
+  indicatorTopic = new Topic({
     ros: props.ros,
     name: 'runstop_button',
     messageType: 'std_msgs/Bool'
   })
-  indicatorTopic.subscribe(handleMsg as (message: ROSLIB.Message) => void)
+  indicatorTopic.subscribe(handleMsg as (message: Message) => void)
   props.ros.on('close', OnClose)
 })
 
