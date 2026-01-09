@@ -1,17 +1,13 @@
 <template>
-  <b-container
-    fluid
-    class="p-0 m-0"
-  >
-    <b-row>
-      <b-col
+  <div class="container-fluid p-0 m-0">
+    <div class="row">
+      <div
         v-for="(v, key) in batteries"
-        id="battery_col"
         :key="key"
-        align="center"
+        class="col text-center"
       >
         <span>
-          <h5 vertical-align="text-bottom">
+          <h5 class="align-text-bottom">
             {{ key }}
             <font-awesome-icon
               v-if="v.charging"
@@ -20,149 +16,155 @@
             />
           </h5>
         </span>
-        <b-progress
-          id="batteryProgress"
-          class="w-100"
-        >
-          <b-progress-bar
-            :value="v.percentage"
-            :animated="v.charging"
-            :variant="v.type"
+        <div class="progress w-100">
+          <div
+            class="progress-bar position-relative"
+            :class="[
+              `bg-${v.type}`,
+              { 'progress-bar-striped progress-bar-animated': v.charging }
+            ]"
+            :style="{ width: `${v.percentage}%` }"
+            role="progressbar"
+            :aria-valuenow="v.percentage"
+            aria-valuemin="0"
+            aria-valuemax="100"
           >
             <span class="position-absolute w-100 d-block"><b>{{ v.percentage }}%</b></span>
-          </b-progress-bar>
-        </b-progress>
-      </b-col>
-    </b-row>
-  </b-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import ROSLIB from 'roslib'
-
-import { BContainer, BCol, BRow, BProgress, BProgressBar } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBolt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 library.add(faBolt)
 
-export default {
-  name: 'BatteryItem',
-  components: {
-    'b-container': BContainer,
-    'b-col': BCol,
-    'b-row': BRow,
-    'b-progress': BProgress,
-    'b-progress-bar': BProgressBar,
-    'font-awesome-icon': FontAwesomeIcon
-  },
-  props: {
-    ros: {
-      type: Object,
-      required: true,
-      default () {
-        return {}
-      }
-    }
-  },
-  data () {
-    return {
-      batteryTopic: new ROSLIB.Topic({
-        ros: this.ros,
-        name: 'battery',
-        messageType: 'sensor_msgs/BatteryState'
-      }),
-      batteries: {}
-    }
-  },
-  mounted () {
-    this.batteryTopic.subscribe(this.handleBatteryMsg)
-  },
-  beforeUnmount () {
-    this.batteryTopic.unsubscribe()
-  },
-  methods: {
-    setupClearBatteryType (key, seconds = 10) {
-      if (this.batteries[key].TypeTimeOut) {
-        clearTimeout(this.batteries[key].TypeTimeOut)
-      }
-      this.batteries[key].TypeTimeOut = setTimeout(() => {
-        this.batteries[key].type = 'dark'
-        this.batteries[key].charging = false
-      }, seconds * 1000)
-    },
-    setupRemoveBattery (key, seconds = 60) {
-      if (this.batteries[key].RemoveTimeOut) {
-        clearTimeout(this.batteries[key].RemoveTimeOut)
-      }
-      this.batteries[key].RemoveTimeOut = setTimeout(() => {
-        console.log('deleting battery', key)
-        this.$delete(this.batteries, key)
-      }, seconds * 1000)
-    },
-    handleBatteryMsg (msg) {
-      let type = 'info'
-      const percentage = Math.round(msg.percentage * 100)
-      if (percentage > 40) {
-        type = 'success'
-      } else if (percentage > 20) {
-        type = 'warning'
-      } else {
-        type = 'danger'
-      }
-
-      const batteries = this.batteries
-      const key = msg.location
-
-      // Get battery or create new one
-      let battery
-      if (!Object.prototype.hasOwnProperty.call(batteries, key)) {
-        battery = {
-          percentage: null,
-          type: null,
-          charging: null,
-          TypeTimeOut: null,
-          RemoveTimeOut: null
-        }
-      } else {
-        battery = batteries[key]
-      }
-      // Only update the state, not the timeouts, which are done
-      // at the end
-      battery.percentage = percentage
-      battery.type = type
-      battery.charging = msg.power_supply_status === 1 // POWER_SUPPLY_STATUS_CHARGING = 1
-
-      // Update current battery
-      batteries[key] = battery
-
-      // Order batteries, so it shown on alphabetical order
-      const ordered = {}
-      Object.keys(batteries).sort().forEach(function (key) {
-        ordered[key] = batteries[key]
-      })
-
-      // Update batteries with ordered
-      this.batteries = ordered
-
-      // Setup Timeouts for this battery
-      this.setupClearBatteryType(key, 10)
-      this.setupRemoveBattery(key, 60)
-    }
-  }
+interface BatteryState {
+  percentage: number
+  type: string
+  charging: boolean
+  TypeTimeOut: ReturnType<typeof setTimeout> | null
+  RemoveTimeOut: ReturnType<typeof setTimeout> | null
 }
+
+interface Batteries {
+  [key: string]: BatteryState
+}
+
+interface BatteryMsg {
+  percentage: number
+  location: string
+  power_supply_status: number
+}
+
+const props = defineProps<{
+  ros: ROSLIB.Ros
+}>()
+
+const batteries = ref<Batteries>({})
+let batteryTopic: ROSLIB.Topic | null = null
+
+const setupClearBatteryType = (key: string, seconds = 10) => {
+  const battery = batteries.value[key]
+  if (battery.TypeTimeOut) {
+    clearTimeout(battery.TypeTimeOut)
+  }
+  battery.TypeTimeOut = setTimeout(() => {
+    battery.type = 'dark'
+    battery.charging = false
+  }, seconds * 1000)
+}
+
+const setupRemoveBattery = (key: string, seconds = 60) => {
+  const battery = batteries.value[key]
+  if (battery.RemoveTimeOut) {
+    clearTimeout(battery.RemoveTimeOut)
+  }
+  battery.RemoveTimeOut = setTimeout(() => {
+    console.log('deleting battery', key)
+    delete batteries.value[key]
+  }, seconds * 1000)
+}
+
+const handleBatteryMsg = (msg: BatteryMsg) => {
+  let type = 'info'
+  const percentage = Math.round(msg.percentage * 100)
+  if (percentage > 40) {
+    type = 'success'
+  } else if (percentage > 20) {
+    type = 'warning'
+  } else {
+    type = 'danger'
+  }
+
+  const key = msg.location
+
+  // Get battery or create new one
+  let battery: BatteryState
+  if (!Object.prototype.hasOwnProperty.call(batteries.value, key)) {
+    battery = {
+      percentage: 0,
+      type: '',
+      charging: false,
+      TypeTimeOut: null,
+      RemoveTimeOut: null
+    }
+  } else {
+    battery = batteries.value[key]
+  }
+  
+  // Update state
+  battery.percentage = percentage
+  battery.type = type
+  battery.charging = msg.power_supply_status === 1 // POWER_SUPPLY_STATUS_CHARGING = 1
+
+  // Update current battery
+  batteries.value[key] = battery
+
+  // Order batteries, so it shown on alphabetical order
+  const ordered: Batteries = {}
+  Object.keys(batteries.value).sort().forEach((key) => {
+    ordered[key] = batteries.value[key]
+  })
+
+  // Update batteries with ordered
+  batteries.value = ordered
+
+  // Setup Timeouts for this battery
+  setupClearBatteryType(key, 10)
+  setupRemoveBattery(key, 60)
+}
+
+onMounted(() => {
+  batteryTopic = new ROSLIB.Topic({
+    ros: props.ros,
+    name: 'battery',
+    messageType: 'sensor_msgs/BatteryState'
+  })
+  batteryTopic.subscribe(handleBatteryMsg as (message: ROSLIB.Message) => void)
+})
+
+onBeforeUnmount(() => {
+  if (batteryTopic) {
+    batteryTopic.unsubscribe()
+  }
+})
 </script>
 
-<style>
+<style scoped>
 #bolt {
   color: #FFFF00;
   height: 1rem;
   width: auto;
 }
-#batteryProgress {
+.progress {
   background-color: #d0d0d0;
 }
 </style>

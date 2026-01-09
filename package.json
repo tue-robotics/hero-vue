@@ -1,21 +1,19 @@
 {
   "name": "hero-vue",
   "version": "0.3.8",
+  "type": "module",
   "description": "Library of (VUE) components to be used in HERO JavaScript apps",
   "author": {
     "name": "Matthijs van der Burgh",
     "email": "MatthijsBurgh@outlook.com"
   },
   "scripts": {
-    "serve": "vue-cli-service serve dev/serve.js",
+    "dev": "vite dev/serve.ts",
     "prebuild": "npm run lint",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "test:unit": "vue-cli-service test:unit",
+    "build": "vite build",
+    "test:unit": "vitest",
     "test": "npm run test:unit",
-    "lint": "vue-cli-service lint",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+    "lint": "eslint --ext .js,.ts,.vue src dev tests",
     "major": "npm version major",
     "minor": "npm version minor",
     "patch": "npm version patch",
@@ -28,52 +26,52 @@
   "unpkg": "dist/hero-vue.min.js",
   "files": [
     "dist/*",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/**/*.ts"
   ],
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.0",
-    "@fortawesome/free-solid-svg-icons": "^6.0.0",
-    "@fortawesome/vue-fontawesome": "^2.0.0",
-    "bootstrap": "^4.5.0",
-    "bootstrap-vue": "^2.20.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.0",
+    "@fortawesome/free-solid-svg-icons": "^6.5.0",
+    "@fortawesome/vue-fontawesome": "^3.0.0",
+    "bootstrap": "^5.3.0",
     "roslib": "^1.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/eslint-parser": "^7.18.9",
-    "@babel/preset-env": "^7.9.0",
     "@rollup/plugin-alias": "^5.0.0",
-    "@rollup/plugin-babel": "^6.0.0",
     "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-replace": "^5.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^12.0.0",
     "@sinonjs/fake-timers": "^13.0.0",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-unit-mocha": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "@vue/compiler-sfc": "^3.0.0-beta.14",
-    "@vue/eslint-config-standard": "^7.0.0",
-    "@vue/test-utils": "^1.0.0",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vue/test-utils": "^2.4.0",
     "auto-ros": "^1.0.0",
     "chai": "^5.0.0",
     "cross-env": "^7.0.0",
     "eslint": "^8.0.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-vue": "^8.0.0",
-    "minimist": "^1.2.0",
-    "rollup": "^2.34.0",
-    "rollup-plugin-terser": "^7.0.0",
-    "rollup-plugin-vue": "^5.1.0",
-    "vue": "^2.6.0",
-    "vue-template-compiler": "^2.6.0"
+    "eslint-plugin-vue": "^9.0.0",
+    "happy-dom": "^15.0.0",
+    "postcss": "^8.5.6",
+    "rollup": "^4.0.0",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "vitest": "^2.0.0",
+    "vue": "^3.4.0",
+    "vue-tsc": "^2.0.0"
   },
   "peerDependencies": {
-    "vue": "^2.6.0"
+    "vue": "^3.4.0"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "repository": {
     "type": "git",
