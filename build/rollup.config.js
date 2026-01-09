@@ -61,8 +61,8 @@ const globals = {
   '@fortawesome/fontawesome-svg-core': 'fontawesomeSvgCore',
   '@fortawesome/free-solid-svg-icons': 'freeSolidSvgIcons',
   '@fortawesome/vue-fontawesome': 'vueFontawesome',
-  'roslib': 'ROSLIB',
-  'vue': 'Vue',
+  'roslib': 'roslib',
+  'vue': 'vue',
 };
 
 // Customize configs for individual targets
@@ -76,6 +76,7 @@ const esConfig = {
     file: 'dist/hero-vue.esm.js',
     format: 'esm',
     exports: 'named',
+    globals,
     sourcemap: true,
   },
   plugins: [
