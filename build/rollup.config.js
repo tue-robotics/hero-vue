@@ -2,13 +2,12 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import vue from 'rollup-plugin-vue';
+import vue from '@vitejs/plugin-vue';
 import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import esbuild from 'rollup-plugin-esbuild';
-import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -38,19 +37,10 @@ const baseConfig = {
         'process.env.NODE_ENV': JSON.stringify('production'),
       },
     },
-    vue: {
-      target: 'browser',
-      css: 'dist/hero-vue.css',
-    },
+    vue: {},
     esbuild: {
-      include: /\.[jt]s$/,
-      exclude: /node_modules/,
-      sourceMap: true,
       target: 'es2020',
-      loaders: {
-        '.ts': 'ts',
-        '.vue': 'ts',
-      },
+      sourceMap: true,
     },
   },
 };
@@ -90,7 +80,6 @@ const esConfig = {
   plugins: [
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
-    postcss(),
     vue(baseConfig.plugins.vue),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
@@ -117,7 +106,6 @@ const cjsConfig = {
   plugins: [
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
-    postcss(),
     vue(baseConfig.plugins.vue),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
@@ -144,7 +132,6 @@ const iifeConfig = {
   plugins: [
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
-    postcss(),
     vue(baseConfig.plugins.vue),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
