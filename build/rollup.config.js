@@ -7,6 +7,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import esbuild from 'rollup-plugin-esbuild';
+import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 
@@ -84,6 +85,18 @@ const esConfig = {
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
     postcss(baseConfig.plugins.postcss),
+    typescript({
+      tsconfig: './tsconfig.json',
+      declaration: true,
+      declarationDir: 'dist',
+      rootDir: 'src',
+      exclude: ['node_modules', 'dist', 'build', 'dev', 'tests', '**/*.vue'],
+      compilerOptions: {
+        declaration: true,
+        declarationMap: true,
+        emitDeclarationOnly: true,
+      },
+    }),
     esbuild(baseConfig.plugins.esbuild),
     resolve({
       extensions: ['.js', '.ts', '.vue', '.css']

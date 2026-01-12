@@ -27,6 +27,7 @@
   "module": "dist/hero-vue.esm.js",
   "browser": "dist/hero-vue.esm.js",
   "unpkg": "dist/hero-vue.min.js",
+  "types": "dist/entry.d.ts",
   "files": [
     "dist/*",
     "src/**/*.vue",
