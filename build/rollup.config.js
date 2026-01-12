@@ -87,7 +87,6 @@ const esConfig = {
     postcss(baseConfig.plugins.postcss),
     typescript({
       tsconfig: './tsconfig.json',
-      declaration: true,
       declarationDir: 'dist',
       rootDir: 'src',
       exclude: ['node_modules', 'dist', 'build', 'dev', 'tests', '**/*.vue'],
