@@ -84,7 +84,7 @@ const esConfig = {
     replace(baseConfig.plugins.replace),
     ...baseConfig.plugins.preVue,
     vue(baseConfig.plugins.vue),
-    postcss(baseConfig.plugins.postcss),
+    postcss({ ...baseConfig.plugins.postcss, extract: false, inject: true }),
     typescript({
       tsconfig: './tsconfig.json',
       declarationDir: 'dist',
