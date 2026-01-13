@@ -1,6 +1,6 @@
 // Import vue components
 import type { App, Plugin } from 'vue'
-import * as components from '@/components/index'
+import * as components from './components/index'
 
 // install function executed by app.use()
 const install = function installHeroVue(app: App) {
@@ -19,4 +19,4 @@ export default plugin
 
 // To allow individual component use, export components
 // each can be registered via app.component()
-export * from '@/components/index'
+export * from './components/index'
