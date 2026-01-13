@@ -158,7 +158,7 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<style>
 #bolt {
   color: #FFFF00;
   height: 1rem;
