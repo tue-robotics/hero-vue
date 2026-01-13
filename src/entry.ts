@@ -1,3 +1,6 @@
+// Import Bootstrap CSS for component styling
+import 'bootstrap/dist/css/bootstrap.css'
+
 // Import vue components
 import type { App, Plugin } from 'vue'
 import * as components from './components/index'
