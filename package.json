@@ -10,10 +10,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "npm run lint",
-    "build": "npm run build:es && npm run build:ssr && npm run build:unpkg",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
     "test:unit": "vitest",
     "test": "npm run test:unit",
     "lint": "eslint --ext .js,.ts,.vue build src dev tests",
