@@ -62,5 +62,8 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<style>
+#power-off {
+  width: auto;
+}
 </style>
