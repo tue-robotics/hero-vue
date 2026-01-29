@@ -2,6 +2,8 @@
 
 import eslint from '@eslint/js';
 import { defineConfig } from "eslint/config"
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import pluginVue from 'eslint-plugin-vue'
 import tseslint from 'typescript-eslint'
 import vueParser from 'vue-eslint-parser'
@@ -12,6 +14,8 @@ import globals from "globals";
 export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.recommended,
+  eslintPluginPrettierRecommended,
+  skipFormatting,
   pluginVue.configs['flat/strongly-recommended'],
   {
     languageOptions: {
