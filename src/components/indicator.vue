@@ -14,56 +14,56 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { Ros, Topic } from 'roslib'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import { ref, onMounted, onBeforeUnmount } from "vue";
+  import { Ros, Topic } from "roslib";
+  import { library } from "@fortawesome/fontawesome-svg-core";
+  import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+  import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faPowerOff)
+  library.add(faPowerOff);
 
-interface IndicatorMsg {
-  data: boolean
-}
-
-const props = defineProps<{
-  ros: Ros
-}>()
-
-const type = ref('dark')
-let indicatorTopic: Topic<IndicatorMsg> | null = null
-
-const handleMsg = (msg: IndicatorMsg) => {
-  if (msg.data) {
-    type.value = 'danger'
-  } else {
-    type.value = 'success'
+  interface IndicatorMsg {
+    data: boolean;
   }
-}
 
-const OnClose = () => {
-  type.value = 'dark'
-}
+  const props = defineProps<{
+    ros: Ros;
+  }>();
 
-onMounted(() => {
-  indicatorTopic = new Topic({
-    ros: props.ros,
-    name: 'runstop_button',
-    messageType: 'std_msgs/Bool'
-  })
-  indicatorTopic.subscribe(handleMsg)
-  props.ros.on('close', OnClose)
-})
+  const type = ref("dark");
+  let indicatorTopic: Topic<IndicatorMsg> | null = null;
 
-onBeforeUnmount(() => {
-  if (indicatorTopic) {
-    indicatorTopic.unsubscribe()
-  }
-})
+  const handleMsg = (msg: IndicatorMsg) => {
+    if (msg.data) {
+      type.value = "danger";
+    } else {
+      type.value = "success";
+    }
+  };
+
+  const OnClose = () => {
+    type.value = "dark";
+  };
+
+  onMounted(() => {
+    indicatorTopic = new Topic({
+      ros: props.ros,
+      name: "runstop_button",
+      messageType: "std_msgs/Bool",
+    });
+    indicatorTopic.subscribe(handleMsg);
+    props.ros.on("close", OnClose);
+  });
+
+  onBeforeUnmount(() => {
+    if (indicatorTopic) {
+      indicatorTopic.unsubscribe();
+    }
+  });
 </script>
 
 <style>
-#power-off {
-  width: auto;
-}
+  #power-off {
+    width: auto;
+  }
 </style>
