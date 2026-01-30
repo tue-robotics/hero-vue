@@ -7,7 +7,10 @@
         class="col text-center"
       >
         <span>
-          <h6 class="align-text-bottom mb-0" id="battery-title">
+          <h6
+            class="align-text-bottom mb-0"
+            id="battery-title"
+          >
             {{ key }}
             <font-awesome-icon
               v-if="v.charging"
