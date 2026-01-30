@@ -45,8 +45,8 @@ describe("battery.vue", () => {
     await wrapper.vm.$nextTick();
     const batteryCols = wrapper.findAll(".col");
     expect(batteryCols).toHaveLength(2);
-    expect(batteryCols[0].get("h5").text()).toContain("hero1");
-    expect(batteryCols[1].get("h5").text()).toContain("hero2");
+    expect(batteryCols[0].get("#battery-title").text()).toContain("hero1");
+    expect(batteryCols[1].get("#battery-title").text()).toContain("hero2");
   });
 
   it("Percentage should be in [0, 100]", () => {
