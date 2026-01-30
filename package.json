@@ -1,6 +1,6 @@
 {
   "name": "hero-vue",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "description": "Library of (VUE) components to be used in HERO JavaScript apps",
   "author": {
