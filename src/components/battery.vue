@@ -7,7 +7,7 @@
         class="col text-center"
       >
         <span>
-          <h5 class="align-text-bottom">
+          <h5 class="align-text-bottom mb-0">
             {{ key }}
             <font-awesome-icon
               v-if="v.charging"
