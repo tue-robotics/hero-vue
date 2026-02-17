@@ -94,7 +94,7 @@
   };
 
   const handleBatteryMsg = (msg: BatteryMsg) => {
-    let type = "info";
+    let type;
     const percentage = Math.round(msg.percentage * 100);
     if (percentage > 40) {
       type = "success";
